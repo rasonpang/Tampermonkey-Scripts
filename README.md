@@ -1,2 +1,1 @@
-1. Install extension "Tampermonkey"
-2. 
+A chat container resizing script for Tampermonkey
