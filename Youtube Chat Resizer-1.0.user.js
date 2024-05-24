@@ -36,11 +36,16 @@
     }
     window.addEventListener('resize', debounce(onResizeChange));
 
+    const onLoad = () => {
+        setTimeout(() => {
+            const targetEl = document.querySelector('ytd-live-chat-frame');
+            if (typeof targetEl == 'object' && targetEl !== null) {
+                onResizeChange();
+            }
+        }, 2500);
+    }
+
     // Element Checking for first time
-    setTimeout(() => {
-        const targetEl = document.querySelector('ytd-live-chat-frame');
-        if (typeof targetEl == 'object' && targetEl !== null) {
-            onResizeChange();
-        }
-    }, 2500);
+    document.onload = onLoad;
+    onLoad();
 })();
