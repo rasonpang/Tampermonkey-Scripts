@@ -16,6 +16,7 @@
 
     // GLOB VARS
     const querySelectors = {
+        css: '#YT-Chat-Resizer-Style',
         chat: 'ytd-live-chat-frame',
         header: '#masthead-container',
         page_manager: 'ytd-page-manager',
@@ -50,7 +51,7 @@
     // EVENT LISTENER
     function injectCSS() {
         const styleEl = document.createElement('style');
-        styleEl.id = 'YT-Chat-Resizer';
+        styleEl.id = querySelectors.css.substring(1);
         styleEl.innerHTML = css;
 
         document.head.prepend(styleEl);
@@ -88,4 +89,5 @@
     window.addEventListener('resize', debounce(onResizeChange));
     document.onload = onLoad;
     onLoad();
+    window.onbeforeunload = function() { document.head.removeChild(document.querySelector(querySelectors.css)); }
 })();
