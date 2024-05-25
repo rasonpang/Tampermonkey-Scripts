@@ -4,7 +4,7 @@
 // @version      1.2
 // @description  Youtube Chat Resizer
 // @author       Mofu
-// @match        https://www.youtube.com/*
+// @match        https://www.youtube.com/watch?v=*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=youtube.com
 // @updateURL    https://github.com/rasonpang/Tampermonkey-Better-Youtube/raw/main/Youtube-Chat-Resizer.user.js
 // @downloadURL  https://github.com/rasonpang/Tampermonkey-Better-Youtube/raw/main/Youtube-Chat-Resizer.user.js
