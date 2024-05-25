@@ -14,7 +14,7 @@
 (function () {
   "use strict";
 
-  // GLOB VARS
+  // GLOBAL VARIABLES
   const querySelectors = {
     css: "#YT-Chat-Resizer-Style",
     chat: "ytd-live-chat-frame",
@@ -25,19 +25,19 @@
     headerHeight = 56,
     emptySpaces = 105;
   const css = `
-        ${querySelectors.page_manager} {
-            margin-top: 0 !important;
-        }
-        ${querySelectors.header} {
-            background: var(--yt-spec-base-background);
-            transform: translateY(-${headerHeight - 10}px) !important;
-            border-bottom: .3rem solid var(--yt-spec-10-percent-layer);
-        }
-
-        ${querySelectors.header}:hover {
-            transform: translateY(0) !important;
-        }
-    `;
+            ${querySelectors.page_manager} {
+                margin-top: 0 !important;
+            }
+            ${querySelectors.header} {
+                background: var(--yt-spec-base-background);
+                transform: translateY(-${headerHeight - 10}px) !important;
+                border-bottom: .3rem solid var(--yt-spec-10-percent-layer);
+            }
+  
+            ${querySelectors.header}:hover {
+                transform: translateY(0) !important;
+            }
+        `;
 
   // HELPERS
   let timer = null;
@@ -50,7 +50,7 @@
     };
   }
 
-  // EVENT LISTENER
+  // FUNCTIONS
   function injectCSS() {
     const styleEl = document.createElement("style");
     styleEl.id = querySelectors.css.substring(1);
@@ -58,7 +58,6 @@
 
     document.head.prepend(styleEl);
   }
-
   function onResizeChange() {
     let frameStyle = ``;
     if (window.outerWidth < desktopMinWidth) {
@@ -71,31 +70,40 @@
       frameStyle = `min-height: 0; max-height: ${maxHeight}px; height: ${height}px;`;
     }
     const targetEl = document.querySelector(querySelectors.chat);
-    if (targetEl) targetEl.style = frameStyle;
-  }
-
-  // ON DOCUMENT LOAD
-  function onLoad() {
-    if (window.location.pathname == "/watch") {
-      setTimeout(() => {
-        // Inject CSS
-        injectCSS();
-
-        // Live Chat
-        const targetEl = document.querySelector(querySelectors.chat);
-        if (typeof targetEl == "object" && targetEl !== null) {
-          onResizeChange();
-        }
-      }, 2500);
+    if (typeof targetEl == "object" && targetEl !== null) {
+      targetEl.style = frameStyle;
     }
   }
 
-  // EXECUTION
+  // ON DOCUMENT LOAD
+  function install() {
+    // Inject CSS
+    injectCSS();
 
-  window.addEventListener("resize", debounce(onResizeChange));
-  document.onload = onLoad;
-  onLoad();
-  window.onbeforeunload = function () {
+    // Live Chat
+    onResizeChange();
+    window.addEventListener("resize", debounce(onResizeChange));
+  }
+  function uninstall() {
     document.head.removeChild(document.querySelector(querySelectors.css));
-  };
+    window.removeEventListener("resize");
+  }
+  function setup() {
+    if (window.location.pathname == "/watch") setTimeout(install, 3000);
+    else setTimeout(uninstall, 100);
+  }
+  function StartPathListener() {
+    let previousPath = null;
+    setInterval(() => {
+      if (previousPath == null) previousPath = window.location.pathname;
+      else if (previousPath !== window.location.pathname) {
+        previousPath = window.location.pathname;
+        setup();
+      }
+    }, 500);
+  }
+
+  // EXECUTION
+  setup();
+  StartPathListener();
 })();
