@@ -74,6 +74,12 @@
       targetEl.style = frameStyle;
     }
   }
+  function removeAdsVideoPlayer() {
+    // Note: Will be remove once everything settled up, this function is temporarily assisting.
+    // [Remove Adblock Thing 5.5] is using iframe
+
+    document.querySelectorAll("#primary .video-stream")[0].remove();
+  }
 
   // ON DOCUMENT LOAD
   function install() {
@@ -83,6 +89,9 @@
     // Live Chat
     onResizeChange();
     window.addEventListener("resize", debounce(onResizeChange));
+
+    // Patch for Remove Adblock Thing 5.5
+    removeAdsVideoPlayer();
   }
   function uninstall() {
     document.head.removeChild(document.querySelector(querySelectors.css));
