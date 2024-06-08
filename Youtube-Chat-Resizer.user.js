@@ -74,19 +74,23 @@
       targetEl.style = frameStyle;
     }
   }
+
+  var removeAdsVideoPlayerInterval = null;
   function removeAdsVideoPlayer() {
     // Note: Will be remove once everything settled up, this function is temporarily assisting.
     // [Remove Adblock Thing 5.5] is using iframe
 
-    document.querySelectorAll("#primary .video-stream")[0].remove();
+    const el = document.querySelector("#primary .video-stream");
+    if (el) {
+      el.remove();
+      clearInterval(removeAdsVideoPlayerInterval);
+    }
   }
 
   // ON DOCUMENT LOAD
   function install() {
     // Patch for Remove Adblock Thing 5.5
-    setTimeout(function () {
-      removeAdsVideoPlayer();
-    }, 100);
+    removeAdsVideoPlayerInterval = setInterval(removeAdsVideoPlayer, 100);
 
     // Customisable, etc...
     setTimeout(function () {
