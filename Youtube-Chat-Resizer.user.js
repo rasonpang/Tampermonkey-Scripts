@@ -81,7 +81,7 @@
     // [Remove Adblock Thing 5.5] is using iframe
 
     const el = document.querySelector("#primary .video-stream");
-    if (el) {
+    if (el && el?.remove) {
       el.remove();
       clearInterval(removeAdsVideoPlayerInterval);
     }
