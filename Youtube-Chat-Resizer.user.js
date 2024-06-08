@@ -83,23 +83,30 @@
 
   // ON DOCUMENT LOAD
   function install() {
-    // Inject CSS
-    injectCSS();
-
-    // Live Chat
-    onResizeChange();
-    window.addEventListener("resize", debounce(onResizeChange));
-
     // Patch for Remove Adblock Thing 5.5
-    removeAdsVideoPlayer();
+    setTimeout(function () {
+      removeAdsVideoPlayer();
+    }, 100);
+
+    // Customisable, etc...
+    setTimeout(function () {
+      // Inject CSS
+      injectCSS();
+
+      // Live Chat
+      onResizeChange();
+      window.addEventListener("resize", debounce(onResizeChange));
+    }, 3000);
   }
   function uninstall() {
-    document.head.removeChild(document.querySelector(querySelectors.css));
-    window.removeEventListener("resize");
+    setTimeout(function () {
+      document.head.removeChild(document.querySelector(querySelectors.css));
+      window.removeEventListener("resize");
+    }, 100);
   }
   function setup() {
-    if (window.location.pathname == "/watch") setTimeout(install, 3000);
-    else setTimeout(uninstall, 100);
+    if (window.location.pathname == "/watch") install();
+    else uninstall();
   }
   function StartPathListener() {
     let previousPath = null;
