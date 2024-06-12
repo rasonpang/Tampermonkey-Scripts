@@ -90,7 +90,7 @@
   // ON DOCUMENT LOAD
   function install() {
     // Patch for Remove Adblock Thing 5.5
-    removeAdsVideoPlayerInterval = setInterval(removeAdsVideoPlayer, 100);
+    // removeAdsVideoPlayerInterval = setInterval(removeAdsVideoPlayer, 100);
 
     // Customisable, etc...
     setTimeout(function () {
