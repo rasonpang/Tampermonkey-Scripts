@@ -25,10 +25,6 @@
     headerHeight = 56,
     emptySpaces = 105;
   const css = `
-            ${querySelectors.chat} {
-              top: 0;
-            }
-
             ${querySelectors.page_manager} {
                 margin-top: 0 !important;
             }
@@ -72,7 +68,7 @@
         window.outerHeight - (emptySpaces - headerHeight + videoPlayerHeight);
       const height = maxHeight - 24;
 
-      frameStyle = `min-height: 0; max-height: ${maxHeight}px; height: ${height}px;`;
+      frameStyle = `min-height: 0; max-height: ${maxHeight}px; height: ${height}px; top: 0;`;
     }
     const targetEl = document.querySelector(querySelectors.chat);
     if (typeof targetEl == "object" && targetEl !== null) {
