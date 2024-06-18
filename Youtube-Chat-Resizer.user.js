@@ -25,9 +25,14 @@
     headerHeight = 56,
     emptySpaces = 105;
   const css = `
+            ${querySelectors.chat} {
+              top: 0;
+            }
+
             ${querySelectors.page_manager} {
                 margin-top: 0 !important;
             }
+
             ${querySelectors.header} {
                 background: var(--yt-spec-base-background);
                 transform: translateY(-${headerHeight - 10}px) !important;
