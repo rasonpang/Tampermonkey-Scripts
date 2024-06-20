@@ -18,6 +18,7 @@
   const querySelectors = {
     css: "#YT-Chat-Resizer-Style",
     chat: "ytd-live-chat-frame",
+    chat_container: "ytd-watch-flexy[fixed-panels] #chat.ytd-watch-flexy",
     header: "#masthead-container",
     page_manager: "ytd-page-manager",
   };
@@ -25,6 +26,10 @@
     headerHeight = 56,
     emptySpaces = 105;
   const css = `
+            ${querySelectors.chat_container} {
+              top: 20px;
+            }
+
             ${querySelectors.page_manager} {
                 margin-top: 0 !important;
             }
