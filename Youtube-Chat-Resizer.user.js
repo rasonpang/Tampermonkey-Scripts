@@ -17,15 +17,26 @@
   // GLOBAL VARIABLES
   const querySelectors = {
     css: "#YT-Chat-Resizer-Style",
-    chat: "ytd-live-chat-frame",
-    chat_container: "ytd-watch-flexy[fixed-panels] #chat.ytd-watch-flexy",
     header: "#masthead-container",
     page_manager: "ytd-page-manager",
+
+    chat_container: "ytd-watch-flexy[fixed-panels] #chat.ytd-watch-flexy",
+    chat: "ytd-live-chat-frame",
+
+    video_container: ".html5-video-player > iframe",
+    video_original: ".html5-video-container > video",
   };
   const desktopMinWidth = 1000,
     headerHeight = 56,
     emptySpaces = 105;
   const css = `
+            ${querySelectors.video_container} {
+              top: 20px;
+            }
+            ${querySelectors.video_original} {
+              visibility: hidden;
+            }
+
             ${querySelectors.chat_container} {
               top: 20px;
             }
