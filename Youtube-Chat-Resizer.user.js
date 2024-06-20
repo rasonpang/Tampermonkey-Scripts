@@ -31,28 +31,28 @@
     emptySpaces = 105;
   const css = `
             ${querySelectors.video_container} {
-              top: 20px;
+              top: 20px !important;
             }
             ${querySelectors.video_original} {
               visibility: hidden;
             }
 
             ${querySelectors.chat_container} {
-              top: 20px;
+              top: 20px !important;
             }
 
             ${querySelectors.page_manager} {
-                margin-top: 0 !important;
+              margin-top: 0 !important;
             }
 
             ${querySelectors.header} {
-                background: var(--yt-spec-base-background);
-                transform: translateY(-${headerHeight - 10}px) !important;
-                border-bottom: .3rem solid var(--yt-spec-10-percent-layer);
+              background: var(--yt-spec-base-background);
+              transform: translateY(-${headerHeight - 10}px) !important;
+              border-bottom: .3rem solid var(--yt-spec-10-percent-layer);
             }
   
             ${querySelectors.header}:hover {
-                transform: translateY(0) !important;
+              transform: translateY(0) !important;
             }
         `;
 
