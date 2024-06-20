@@ -24,6 +24,8 @@
     chat: "ytd-live-chat-frame",
 
     video_container: ".html5-video-player > iframe",
+    video_thumbnail:
+      ".ytp-cued-thumbnail-overlay > .ytp-cued-thumbnail-overlay-image",
     video_original: ".html5-video-container > video",
   };
   const desktopMinWidth = 1000,
@@ -33,7 +35,10 @@
             ${querySelectors.video_container} {
               top: 20px !important;
             }
-            ${querySelectors.video_original} {
+            ${[
+              querySelectors.video_thumbnail,
+              querySelectors.video_original,
+            ].join(", ")} {
               visibility: hidden;
             }
 
