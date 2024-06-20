@@ -28,38 +28,44 @@
       ".ytp-cued-thumbnail-overlay > .ytp-cued-thumbnail-overlay-image",
     video_original: ".html5-video-container > video",
   };
+
   const desktopMinWidth = 1000,
     headerHeight = 56,
     emptySpaces = 105;
+
   const css = `
-            ${querySelectors.video_container} {
-              top: 20px !important;
-            }
-            ${[
-              querySelectors.video_thumbnail,
-              querySelectors.video_original,
-            ].join(", ")} {
-              visibility: hidden;
-            }
+    :root {
+      --pad-top: 20px;
+    }
+      
+    ${querySelectors.video_container} {
+      top: var(--pad-top) !important;
+      height: calc(100% - var(--pad-top)) !important;
+    }
+    ${[querySelectors.video_thumbnail, querySelectors.video_original].join(
+      ", "
+    )} {
+      visibility: hidden;
+    }
 
-            ${querySelectors.chat_container} {
-              top: 20px !important;
-            }
+    ${querySelectors.chat_container} {
+      top: var(--pad-top) !important;
+    }
 
-            ${querySelectors.page_manager} {
-              margin-top: 0 !important;
-            }
+    ${querySelectors.page_manager} {
+      margin-top: 0 !important;
+    }
 
-            ${querySelectors.header} {
-              background: var(--yt-spec-base-background);
-              transform: translateY(-${headerHeight - 10}px) !important;
-              border-bottom: .3rem solid var(--yt-spec-10-percent-layer);
-            }
-  
-            ${querySelectors.header}:hover {
-              transform: translateY(0) !important;
-            }
-        `;
+    ${querySelectors.header} {
+      background: var(--yt-spec-base-background);
+      transform: translateY(-${headerHeight - 10}px) !important;
+      border-bottom: .3rem solid var(--yt-spec-10-percent-layer);
+    }
+
+    ${querySelectors.header}:hover {
+      transform: translateY(0) !important;
+    }
+  `;
 
   // HELPERS
   let timer = null;
