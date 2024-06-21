@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Youtube Chat Resizer
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.2.1
 // @description  Youtube Chat Resizer
 // @author       Mofu
 // @match        https://www.youtube.com/*
@@ -25,7 +25,7 @@
 
     video_container: ".html5-video-player > iframe",
     video_thumbnail:
-      ".ytp-cued-thumbnail-overlay > .ytp-cued-thumbnail-overlay-image",
+      ".ytp-cued-thumbnail-overlay > .ytp-cued-thumbnail-overlay-image, .ytp-offline-slate > .ytp-offline-slate-background",
     video_original: ".html5-video-container > video",
   };
 
