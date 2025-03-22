@@ -20,25 +20,28 @@ function setStyle(classList) {
     const content = `html { --primary-color: ${color}; } ` + classList.map(i => `.${i} { background-color: var(--primary-color) !important; }`).join(' ');
     customStyle.innerHTML = content;
 
-    document.querySelector('head').prepend(customStyle);
-    document.querySelector("body").style = `background-color: var(--primary-color);`;
+    if ($('#custom-style')) $('head').removeChild($('#custom-style'));
+    $('head').prepend(customStyle);
+    $("body").style = `background-color: var(--primary-color);`;
 }
 
+// Scan className with 'background-color' in it
 function scanClassName(classList) {
+    const defaultBgColor = 'rgba(0, 0, 0, 0)';
     const elementId = 'test-el';
     let result = [];
 
     classList.forEach(i => {
         const testEl = document.createElement('div');
         testEl.id = elementId;
-        document.querySelector('body').prepend(testEl);
-        document.querySelector(`#${elementId}`).className = document.querySelector(`#${elementId}`).className + i + ' ';
-        if (getComputedStyle(document.querySelector(`#${elementId}`)).backgroundColor !== 'rgba(0, 0, 0, 0)') {
+        $('body').prepend(testEl);
+        $(`#${elementId}`).className = $(`#${elementId}`).className + i + ' ';
+        if (getComputedStyle($(`#${elementId}`)).backgroundColor !== defaultBgColor) {
             result.push(i);
-            document.querySelector('body').removeChild(testEl);
+            $('body').removeChild(testEl);
             return;
         }
-        document.querySelector('body').removeChild(testEl);
+        $('body').removeChild(testEl);
     });
 
     return result;
@@ -50,10 +53,46 @@ function execute(elements) {
     setStyle(targetClassList);
 }
 
-setTimeout(() => {
-  execute([
-    document.querySelector("div[data-testid='primaryColumn']"),
-    document.querySelector("div[aria-label='Home timeline']")?.children[0]?.children[0],
-    document.querySelector("div[aria-label='Grok']")?.children[0]?.children[0]?.children[0]?.children[0]?.children[0]?.children[0],
-  ]);
-}, 1000);
+// For grabbing element more easily
+function $(querySelector, nested = 0) {
+    let result = document.querySelector(querySelector);
+    if ([undefined, null].includes(result)) return undefined;
+    if (nested <= 0) return result;
+
+    for (let i = 0; i < nested; i++) {
+        if (!result) return undefined;
+        result = result?.children[0];
+    }
+    return result;
+}
+
+function setup() {
+    setTimeout(() => {
+        execute([
+          // Default
+          $("div[data-testid='primaryColumn']"),
+          $("div[aria-label='Home timeline']", 2),
+
+          // Post
+          $("div[aria-label='Grok']", 6),
+          $("div[aria-label='Home timeline']", 6),
+
+          // Chat
+          $("section[aria-label='Section details']", 1),
+          $("section[aria-label='Section navigation']", 6),
+
+          // Job Page
+          $("div[data-testid='GrokDrawer']", 1),
+        ]);
+    }, 1000);
+}
+
+let previousUrl = '';
+const observer = new MutationObserver(function(mutations) {
+  if (location.href !== previousUrl) {
+      previousUrl = location.href;
+      setup();
+    }
+});
+const config = {subtree: true, childList: true};
+observer.observe(document, config);
