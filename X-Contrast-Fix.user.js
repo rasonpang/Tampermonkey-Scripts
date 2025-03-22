@@ -68,23 +68,27 @@ function $(querySelector, nested = 0) {
 
 function setup() {
     setTimeout(() => {
-        execute([
-          // Default
-          $("div[data-testid='primaryColumn']"),
-          $("div[aria-label='Home timeline']", 2),
-
-          // Post
-          $("div[aria-label='Grok']", 6),
-          $("div[aria-label='Home timeline']", 6),
-
-          // Chat
-          $("section[aria-label='Section details']", 1),
-          $("section[aria-label='Section navigation']", 6),
-
-          // Job Page
-          $("div[data-testid='GrokDrawer']", 1),
-        ]);
-    }, 1000);
+        const targets = [
+            // Default
+            $("div[data-testid='primaryColumn']"),
+            $("div[aria-label='Home timeline']", 2),
+    
+            // Post
+            $("div[aria-label='Grok']", 6),
+            $("div[aria-label='Home timeline']", 6),
+    
+            // Chat
+            $("section[aria-label='Section details']", 1),
+            $("section[aria-label='Section navigation']", 6),
+    
+            // Job Page
+            $("div[data-testid='GrokDrawer']", 1),
+        ];
+        
+        if (targets[0] === undefined || targets[1] === undefined) return setup();
+    
+        return execute(targets);
+    }, 100);
 }
 
 let previousUrl = '';
