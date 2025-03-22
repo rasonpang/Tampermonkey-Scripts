@@ -6,8 +6,8 @@
 // @author      Mofu
 // @match       https://x.com/*
 // @icon        https://abs.twimg.com/favicons/twitter.3.ico
-// @updateURL   none
-// @downloadURL none
+// @updateURL   https://github.com/rasonpang/Tampermonkey-Scripts/raw/main/X-Contrast-Fix.user.js
+// @downloadURL https://github.com/rasonpang/Tampermonkey-Scripts/raw/main/X-Contrast-Fix.user.js
 // @grant       none
 // ==/UserScript==
 
